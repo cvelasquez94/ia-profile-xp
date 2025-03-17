@@ -29,9 +29,6 @@ logs/
 *.db
 *.sqlite3
 
-# Archivos de dependencias
-requirements.txt
-
 # Archivos de IDEs y editores de código
 .vscode/
 .idea/
