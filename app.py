@@ -5,13 +5,23 @@ from flask import Flask, request, jsonify
 from google.cloud import vision
 
 # Configurar credenciales de Google Cloud
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "credentials.json"
+# Cargar credenciales desde la variable de entorno
+google_credentials = os.getenv("GOOGLE_CREDENTIALS_JSON")
+
+if google_credentials:
+    # Crear un archivo temporal con las credenciales
+    temp_credentials = tempfile.NamedTemporaryFile(delete=False, suffix=".json")
+    temp_credentials.write(google_credentials.encode())
+    temp_credentials.close()
+
+    # Configurar la variable de entorno para Google Cloud
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = temp_credentials.name
+
+# Inicializar el cliente de Google Vision
+client = vision.ImageAnnotatorClient()
 
 # Inicializar Flask
 app = Flask(__name__)
-
-# Cliente de Google Vision AI
-client = vision.ImageAnnotatorClient()
 
 # Headers con User-Agent para evitar bloqueos
 HEADERS = {
