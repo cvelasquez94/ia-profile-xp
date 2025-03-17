@@ -1,6 +1,7 @@
 import os
 import requests
 import io
+import tempfile  # ← Asegúrate de importar esto
 from flask import Flask, request, jsonify
 from google.cloud import vision
 
