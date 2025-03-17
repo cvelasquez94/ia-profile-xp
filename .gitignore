@@ -1,0 +1,52 @@
+# Archivos de Python
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.swp
+*.swo
+
+# Entornos virtuales
+venv/
+.env
+.envrc
+*.venv
+*.virtualenv
+Pipfile
+Pipfile.lock
+
+# Configuración de Google Cloud
+credentials.json
+.gcloudignore
+
+# Archivos de logs y caché
+logs/
+*.log
+*.out
+*.err
+*.pid
+*.seed
+*.db
+*.sqlite3
+
+# Archivos de dependencias
+requirements.txt
+
+# Archivos de IDEs y editores de código
+.vscode/
+.idea/
+*.sublime-workspace
+
+# Configuración de Docker (si usas Docker)
+docker-compose.yml
+.Dockerfile.swp
+
+# Archivos temporales del sistema
+.DS_Store
+Thumbs.db
+
+# Compilaciones y distribuciones
+build/
+dist/
+*.egg-info/
+*.egg
