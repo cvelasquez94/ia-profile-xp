@@ -20,23 +20,25 @@ app = Flask(__name__)
 client = vision.ImageAnnotatorClient()
 
 # Activity classification lists
-EXTREME_SPORTS = {"Skydiving", "Bungee jumping", "Rock climbing", "Motocross", "Surfing", "Snowboarding", "Skateboarding"}
+EXTREME_SPORTS = {
+    "Skydiving", "Bungee jumping", "Rock climbing", "Motocross", "Surfing", "Snowboarding",
+    "Skateboarding", "Ski", "Ski Equipment", "Winter sports"
+}
 NORMAL_ACTIVITIES = {"Walking", "Running", "Cycling", "Swimming", "Gym", "Yoga"}
 
 def classify_activity(labels):
-    """Classifies activity based on detected labels"""
+    """Classifies activity based on detected labels and assigns a risk level."""
     detected_activities = [label["description"] for label in labels]
 
-    # Check if any extreme sports are detected
+    # Check for extreme sports
     extreme_detected = EXTREME_SPORTS.intersection(detected_activities)
-    normal_detected = NORMAL_ACTIVITIES.intersection(detected_activities)
 
     if extreme_detected:
+        if "Ski" in detected_activities or "Snowboarding" in detected_activities:
+            return "Extreme sport detected: Ski/Snowboarding", 7  # Moderate-high risk
         return "Extreme sport detected", 9  # High risk
-    elif normal_detected:
-        return "Normal activity", 2  # Low risk
     else:
-        return "Indeterminate", 5  # Default medium risk
+        return "Normal activity", 2  # Low risk
 
 @app.route("/analyze", methods=["POST"])
 def analyze_image():
